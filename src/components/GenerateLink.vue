@@ -6,21 +6,20 @@
       </div>
     </div>
 
-    <div class="row p-4 table-div">
+    <div class="row p-4 pt-2 form-div">
       <div class="mx-auto w-50">
         <form
           class="form-group p-4 my-2 mx-auto text-left"
           @submit.prevent="handleSubmit"
         >
-          <label name="email" class="pb-0">Email address</label>
-          <input v-model="form.email" type="email" class="form-control mb-4" />
+          <label name="name" class="pb-0 mb-0">Name</label>
+          <input v-model="form.name" type="name" class="form-control mb-3" />
 
-          <label name="password" class="pb-0">Password</label>
-          <input
-            v-model="form.password"
-            type="password"
-            class="form-control mb-4"
-          />
+          <label name="email" class="pb-0 mb-0">Email address</label>
+          <input v-model="form.email" type="email" class="form-control mb-3" />
+
+          <label name="password" class="pb-0 mb-0">Password</label>
+          <input v-model="form.password" type="password" class="form-control mb-3" />
 
           <div class="d-flex justify-content-center">
             <button type="submit" class="btn btn-submit mx-auto">
@@ -28,6 +27,7 @@
             </button>
           </div>
         </form>
+        
       </div>
 
       <div class="link-div py-3">
@@ -45,6 +45,7 @@ export default {
   data() {
     return {
       form: {
+        name: null,
         email: null,
         password: null,
       },
@@ -54,7 +55,8 @@ export default {
   methods: {
     handleSubmit() {
       this.$http
-        .post("http://192.168.1.127:3000/api/dashboard/generateurl", this.form)
+        .post("http://35.239.165.90/api/dashboard/generateurl", this.form)
+        // .post("http://192.168.1.157:3000/api/dashboard/generateurl", this.form)
         .then((res) => {
           this.generatedLink = res.data.url;
           localStorage.setItem("generatedLink", this.generatedLink);
@@ -75,6 +77,12 @@ export default {
 .heading {
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+.form-div {
+  height: 77vh;
+  font-size: 15px;
+  overflow-x: auto;
+  overflow-y: auto;
 }
 form {
   background-color: #fff;

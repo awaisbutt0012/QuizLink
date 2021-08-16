@@ -45,12 +45,6 @@ const routes = [
       import(/* webpackChunkName: "response" */ "../components/Response.vue"),
   },
   {
-    path: "/login",
-    name: "login",
-    component: () =>
-      import(/* webpackChunkName: "login" */ "../views/Login.vue"),
-  },
-  {
     path: "/",
     name: "dashboard",
     component: () =>

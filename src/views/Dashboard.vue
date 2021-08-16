@@ -33,7 +33,7 @@
             </h3>
           </div>
           <div class="col-3 text-right">
-            <button class="btn btn-logout">
+            <button class="btn btn-logout" @click="handleLogout">
               <i class="fas fa-power-off"></i>&nbsp;
               <span class="my-auto">Logout</span>
             </button>
@@ -69,11 +69,20 @@ export default {
         { id: 1, name: "Home", slug: "", icon: "fas fa-home" },
         { id: 2, name: "Candidates", slug: "display-candidates", icon: "fas fa-users" },
         { id: 3, name: "Generate Link", slug: "generate-link", icon: "fas fa-link" },
+        { id: 4, name: "Create Post", slug: "create-post", icon: "fas fa-plus" },
+        { id: 5, name: "Applicants", slug: "applicants", icon: "fas fa-users" },
       ],
       logo: image,
       avatar: avatar,
     };
   },
+  // beforeCreate() {
+  //   let loggedUser = localStorage.getItem('loggedUser');
+  //   if (loggedUser == null) {
+  //     this.$router.push({ path: "/signin" });
+  //   }
+  //   console.log("loggedUser", loggedUser)
+  // },
   created() {
     setInterval(this.getNow, 1000);
   },
@@ -81,6 +90,10 @@ export default {
     onChange() {
       this.changeToggle = false;
     },
+    handleLogout() {
+			localStorage.removeItem('loggedUser');
+      this.$router.push({ path: "/signin" });
+    }
   },
 };
 </script>
@@ -95,7 +108,7 @@ export default {
   height: 100%;
 }
 .left-panel .logo {
-  width: 140px;
+  width: 120px;
 }
 .left-panel i {
   color: #fff;
@@ -108,17 +121,18 @@ export default {
 }
 .left-panel .links {
   text-decoration: none;
-  border-left: solid 5px #eab24d;
+  border-left: solid 5px #3e5b88;
   font-size: 15px;
 }
 .links:hover,
 .links:focus {
-  background-color: #eab24d;
+  background-color: #3e5b88;
 }
 .right-panel {
   background-color: #f5f5f5;
   border-radius: 5px;
-  height: 97vh;
+  /* height: 100vh; */
+  height: 100%;
 }
 .right-panel .avatar {
   width: 70px;

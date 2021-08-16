@@ -1,34 +1,49 @@
 <template>
   <div class="quiz">
     <div class="container-fluid text-left main-div p-3 pb-5">
-      <img :src="logo" alt="logo" width="100px" class="logo ml-2" />
-      <div class="col-9 right-panel mt-n5 bg-white mx-auto" v-if="!isRecording">
+      <img :src="logo" alt="logo" width="60px" class="logo ml-2" />
+      
+      <div class="col-9 right-panel bg-white mt-n4 mx-auto" v-if="!isRecording">
         <Instructions></Instructions>
       </div>
-      <div class="col-9 right-panel mt-n5 bg-white mx-auto" v-else>
+      
+      <div class="col-9 right-panel bg-white mx-auto" v-else>
         <Quiz></Quiz>
+
+        <!-- MODAL -->
         <div id="myModal" class="modalss">
-        <!-- Modal content -->
-        <div class="modal-content">
-          <!-- form for in div where user enter data for update -->
-          <h5 class="heading-text">Progress Uploading</h5>
-          <progress
-            class="prog"
-            max="100"
-            :value.prop="uploadPercentage"
-          ></progress>
-          <!-- <input id="updatedUserName" type="text" class="input-field" placeholder="@Example Abc" required>
-                   -->
+          <!-- Modal content -->
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 v-if="uploadPercentage == 100" class="modal-title" id="exampleModalLongTitle">Video Uploaded</h5>
+              <h5 v-else class="modal-title" id="exampleModalLongTitle">Progress Uploading</h5>
+            </div>
+            <div class="modal-body">
+              <!-- form for in div where user enter data for update -->
+              <progress
+                class="progress-bar progress-bar-striped progress-bar-animated rounded"
+                max="100"
+                style="width: 100% "
+                :value.prop="uploadPercentage"
+              ></progress>
+            </div>
+          </div>
         </div>
+        <!-- END OF MODAL -->
+
+
       </div>
-      </div>
+
     </div>
   </div>
 </template>
+
 <script>
 import Instructions from "@/components/Instructions.vue";
 import Quiz from "@/components/Quiz.vue";
-import Image from "@/assets/dsGroup.png";
+// import Image from "@/assets/dsGroup.png";
+import image1 from "@/assets/dsCircleLogo.png";
+
 export default {
   components: {
     Instructions,
@@ -36,7 +51,7 @@ export default {
   },
   data() {
     return {
-      logo: Image,
+      logo: image1,
       uploadPercentage: 0,
       instruction: true,
       quiz: false,
@@ -66,7 +81,8 @@ export default {
 
       formData.append("LogID", logId);
       this.$http
-        .post("http://192.168.1.127:3000/api/quiz/submit", formData, {
+        // .post("http://192.168.1.157:3000/api/quiz/submit", formData, {
+        .post("http://35.239.165.90/api/quiz/submit", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -77,6 +93,8 @@ export default {
           }.bind(this),
         })
         .then((res) => {
+          // console.log(this.uploadPercentage);
+
           console.log("SUCCESS!! ", res);
         })
         .catch((err) => {
@@ -110,6 +128,7 @@ export default {
         this.isRecording = true;
         this.$router.push({ path: "/questions" });
         this.$gtag.event("stream-start", {});
+
       } catch (err) {
         this.isRecording = false;
         this.$gtag.event("stream-stop", {});
@@ -132,25 +151,24 @@ export default {
   }
 };
 </script>
+
 <style scoped>
 .main-div {
   background: #F5F5F5;
-  /* position: fixed; */
   height: 100%;
 }
 .logo {
-  filter: drop-shadow(0 4px 8px rgba(9, 13, 71, 0.9));
+  /* filter: drop-shadow(0 4px 8px rgba(9, 13, 71, 0.9)); */
   margin-left: 30px;
 }
 .right-panel {
-  /* height: 90vh; */
   height: 100%;
   padding: 40px;
   border-radius: 10px;
 }
 .modalss {
   display: none; /* Hidden by default */
- position: fixed;
+  position: fixed;
   bottom: 10px;
   right: 10px;
   width: 300px;
@@ -179,11 +197,12 @@ export default {
   text-decoration: none;
   cursor: pointer;
 }
-@media screen and (max-width: 1024px) {
+
+/* @media screen and (max-width: 1024px) {
   .logo {
-    width: 80px;
+    width: 60px;
   }
-}
+} */
 @media screen and (max-width: 769px) {
   .logo {
     margin-left: 0;

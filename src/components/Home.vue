@@ -1,28 +1,28 @@
 <template>
   <div class="container">
-    <div class="row d-flex justify-content-center p-4">
-      <!-- <div class="col-lg-4 p-4 m-5 users-div">
+    <div class="row d-flex justify-content-center p-5 pt-3">
+      <div class="col-lg-4 p-5 m-5 users-div">
         <h4 class="pb-4">Total candidates</h4>
         <vc-donut
-          :sections="[{ value: 75, color: '#ef6052' }]"
+          :sections="[{ value: axiosLength, color: '#ef6052' }]"
           :size="200"
           unit="px"
           background="#fafafa"
         >
-          <h4>75</h4>
+          <h4>{{ axiosLength }}</h4>
         </vc-donut>
       </div>
-      <div class="col-lg-4 p-4 m-5 quiz-div">
+      <div class="col-lg-4 p-5 m-5 quiz-div">
         <h4 class="pb-4">Quiz Attempts</h4>
         <vc-donut
-          :sections="[{ value: 60, color: '#eab24d' }]"
+          :sections="[{ value: quizAttempt, color: '#ef6052' }]"
           :size="200"
           unit="px"
           background="#fafafa"
         >
-          <h4>60%</h4>
+          <h4>{{ quizAttempt }}</h4>
         </vc-donut>
-      </div> -->
+      </div>
 
       <!-- <div class="row p-4 m-5 date-div">
         <h4>today {{ today }}</h4>
@@ -34,14 +34,36 @@
 
 <script>
 export default {
-  date() {
+  data() {
     return {
+      axiosData: [],
+      axiosLength: 0,
+      quizAttempt: 0,
       today: new Date().toLocaleDateString(),
       timestamp: null,
     };
   },
-  created() {
+  mounted() {
     setInterval(this.getNow, 1000);
+    this.$http
+      // .get("http://35.239.165.90/api/dashboard/candidates_record")
+      .get("http://192.168.1.157:3000/api/dashboard/candidates_record")
+      .then((res) => {
+        /* GET NUMBER OF CANDIDATES */
+        this.axiosData = res.data;
+        this.axiosLength = this.axiosData.length;
+
+        /* GET NUMBER OF QUIZ ATTEMPTS */
+        for (let i=0; i<this.axiosLength; i++) {
+          if (this.axiosData[i].turnedinquiz == 1) {
+            this.quizAttempt++;
+          }
+        }
+        // console.log(res.data);
+      })
+      .catch((err) => {
+        alert("Error", err);
+      });
   },
   // methods: {
   //   getNow: function() {
@@ -66,8 +88,7 @@ export default {
   font-weight: 300;
 }
 .row {
-  overflow-x: auto;
-  overflow-y: auto;
+  height: 84vh;
 }
 .users-div,
 .quiz-div {

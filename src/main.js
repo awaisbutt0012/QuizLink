@@ -13,6 +13,8 @@ import "bootstrap-vue/dist/bootstrap-vue.css";
 import VueTailwind from "vue-tailwind";
 import Ads from "vue-google-adsense";
 import VueGtag from "vue-gtag";
+//progress bar
+import 'nprogress/nprogress.css'
 
 import Donut from "vue-css-donut-chart";
 import "vue-css-donut-chart/dist/vcdonut.css";
