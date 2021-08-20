@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white">
+  <div class="">
     <div class="instruction-page rounded p-4 mx-auto">
       <div class="border-box">
         <div class="heading py-3 text-white">
@@ -73,7 +73,7 @@ export default {
   /* font-size: 20px; */
 }
 .heading {
-  background: #28374E;
+  background: #28374e;
   font-weight: 300;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;

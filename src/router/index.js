@@ -27,16 +27,18 @@ const routes = [
         name: "instructions",
         props: true,
         component: () =>
-          import( /* webpackChunkName: "Instructions" */ "../components/Instructions.vue"),
+          import(
+            /* webpackChunkName: "Instructions" */ "../components/Instructions.vue"
+          ),
       },
       {
         path: "/questions",
         name: "questions",
         props: true,
         component: () =>
-          import( /* webpackChunkName: "Quiz" */ "../components/Quiz.vue"),
-      }
-    ]
+          import(/* webpackChunkName: "Quiz" */ "../components/Quiz.vue"),
+      },
+    ],
   },
   {
     path: "/response",

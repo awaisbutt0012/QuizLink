@@ -13,13 +13,28 @@
           @submit.prevent="handleSubmit"
         >
           <label name="name" class="pb-0 mb-0">Name</label>
-          <input v-model="form.name" type="name" class="form-control mb-3" />
+          <input
+            v-model="form.name"
+            type="name"
+            class="form-control mb-3"
+            required
+          />
 
           <label name="email" class="pb-0 mb-0">Email address</label>
-          <input v-model="form.email" type="email" class="form-control mb-3" />
+          <input
+            v-model="form.email"
+            type="email"
+            class="form-control mb-3"
+            required
+          />
 
           <label name="password" class="pb-0 mb-0">Password</label>
-          <input v-model="form.password" type="password" class="form-control mb-3" />
+          <input
+            v-model="form.password"
+            type="password"
+            class="form-control mb-3"
+            required
+          />
 
           <div class="d-flex justify-content-center">
             <button type="submit" class="btn btn-submit mx-auto">
@@ -27,11 +42,10 @@
             </button>
           </div>
         </form>
-        
       </div>
 
       <div class="link-div py-3">
-        <router-link to="/instructions" target='_blank'>
+        <router-link to="/quiz" target="_blank">
           <p>{{ generatedLink }}</p>
         </router-link>
       </div>
@@ -40,6 +54,7 @@
 </template>
 
 <script>
+import Vue from "vue";
 export default {
   name: "HelloWorld",
   data() {
@@ -55,15 +70,19 @@ export default {
   methods: {
     handleSubmit() {
       this.$http
-        .post("http://35.239.165.90/api/dashboard/generateurl", this.form)
-        // .post("http://192.168.1.157:3000/api/dashboard/generateurl", this.form)
+        .post(this.VUE_APP_SERVICE_URL + "/dashboard/generateurl", this.form)
         .then((res) => {
           this.generatedLink = res.data.url;
           localStorage.setItem("generatedLink", this.generatedLink);
           console.log(res);
         })
         .catch((err) => {
-          alert("Error", err);
+          Vue.$toast.open({
+            message: "Something went wrong!",
+            type: "error",
+            // all of other options may go here
+          });
+          console.log(err);
         });
     },
   },

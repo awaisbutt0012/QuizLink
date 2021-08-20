@@ -14,10 +14,20 @@ import VueTailwind from "vue-tailwind";
 import Ads from "vue-google-adsense";
 import VueGtag from "vue-gtag";
 //progress bar
-import 'nprogress/nprogress.css'
+import "nprogress/nprogress.css";
 
 import Donut from "vue-css-donut-chart";
 import "vue-css-donut-chart/dist/vcdonut.css";
+
+import VueToast from "vue-toast-notification";
+
+// Import one of the available themes
+//import 'vue-toast-notification/dist/theme-default.css';
+import "vue-toast-notification/dist/theme-sugar.css";
+
+import vuetify from "./plugins/vuetify";
+
+Vue.use(VueToast);
 
 Vue.use(Donut);
 
@@ -34,6 +44,15 @@ Vue.use(VueGtag, {
 Vue.use(require("vue-script2"));
 Vue.config.productionTip = false;
 Vue.use(Ads.Adsense);
+
+//global vaiable
+Vue.mixin({
+  data: function () {
+    return {
+      VUE_APP_SERVICE_URL: process.env.VUE_APP_SERVICE_URL,
+    };
+  },
+});
 const settings = {
   TInput: {
     classes: "form-input border-2 text-gray-700",
@@ -75,5 +94,6 @@ Vue.config.productionTip = false;
 
 new Vue({
   router,
+  vuetify,
   render: (h) => h(App),
 }).$mount("#app");

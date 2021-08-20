@@ -1,41 +1,58 @@
 <template>
   <div class="main-div">
-    <div class="row pt-2">
-      <div class="col-9 text-left heading ml-4">
-        <h4>Candidates</h4>
+    <div class="row pt-5">
+      <div class="text-left heading ml-4">
+        <h5>Candidates</h5>
       </div>
     </div>
 
     <div class="row p-4 pt-2 table-div">
       <div>
-        <table class="table table-condensed">
-          <tr class="p-0">
+        <table class="table table-sm table-borderless text-center">
+          <tr>
             <th>Name</th>
             <th>Email</th>
             <th>Task</th>
             <th>Quiz Status</th>
             <th>Actions</th>
           </tr>
+          <!-- <tr>
+            <td>Name</td>
+            <td>Email</td>
+            <td>Task</td>
+            <td><i class="fas fa-circle" style="color:#1de9b6; font-size:8px"></i>Quiz Status</td>
+            <td>
+              <i class="far fa-trash-alt px-1" @click="handleDelete(item.LogID)"></i> <br/>
+            </td>
+          </tr> -->
           <tr v-for="item in axiosData" :key="item.id" class="p-0">
             <td class="p-0"><p>{{ item.name }}</p></td>
             <td class="p-0"><p>{{ item.email }}</p></td>
             <td class="p-0"><p>{{ item.task }}</p></td>
             <td class="p-0">
-              <p v-if="item.turnedinquiz == 0" style="color:red"> Pending </p>
-              <p v-else style="color:green"> Turned in </p>
-              <!-- <p>{{ item.turnedinquiz }}</p> -->
+              <p v-if="item.turnedinquiz == 0">
+                <i class="fas fa-circle" style="color:#e1090d; font-size:8px"></i>
+                Pending 
+              </p>
+              <p v-else >
+                <i class="fas fa-circle" style="color:#14d942; font-size:8px"></i>
+                Turned in 
+              </p>
             </td>
             <td class="p-0 pt-1">
-              <!-- <a :href="item.recording_path"><p>{{ item.recording_path }}</p></a> -->
-              <i class="fas fa-play px-1" @click="handlePlay(item.LogID)" data-toggle="modal" data-target="#myModal"></i>
-              <i class="fas fa-download px-1" @click="handleDownload(item.LogID)"></i>
+              <i v-if="item.turnedinquiz == 1" class="fas fa-play px-1" @click="handlePlay(item.LogID)" data-toggle="modal" data-target="#myModal"></i>
+              <i v-else class="fas fa-play px-1" style="cursor: default; color:#9b9d9f"></i>
+
+              <i v-if="item.turnedinquiz == 1" class="fas fa-download px-1" @click="handleDownload(item.LogID)"></i>
+              <i v-else class="fas fa-download px-1"  style="cursor: default; color:#9b9d9f"></i>
+
               <i class="far fa-trash-alt px-1" @click="handleDelete(item.LogID)"></i> <br/>
-              <!-- <a :href="downloadLink"><i class="fas fa-download px-1"></i></a> -->
-              <!-- <a v-show="downUser == item.LogID" :href="downloadLink">{{ downloadLink }}</a> -->
             </td>
           </tr>
+
         </table>
 
+        <!-- MODAL -->
         <div class="modal fade" id="myModal" role="dialog">
           <div class="modal-dialog">
             <!-- Modal content-->
@@ -73,8 +90,8 @@ export default {
   mounted() {
     NProgress.start();
     this.$http
-      // .get("http://35.239.165.90/api/dashboard/candidates_record")
-      .get("http://192.168.1.157:3000/api/dashboard/candidates_record")
+      .get("http://34.135.254.16/backend/api/dashboard/candidates_record")
+      // .get("http://192.168.1.157:3000/api/dashboard/candidates_record")
       .then((res) => {
         this.axiosData = res.data;
         console.log(res);
@@ -87,12 +104,12 @@ export default {
   },
   methods: {
     handlePlay(id) {
-      this.downloadLink = "http://192.168.1.157:3000/api/dashboard/candidates_record/play?LogID=" + id;
+      this.downloadLink = "http://34.135.254.16/backend/api/dashboard/candidates_record/play?LogID=" + id;
     },
 
     handleDownload(id) {
       this.downUser = id;
-      this.downloadLink = "http://192.168.1.157:3000/api/dashboard/candidates_record/download?LogID=" + id;
+      this.downloadLink = "http://34.135.254.16/backend/api/dashboard/candidates_record/download?LogID=" + id;
 
       var fURL = document.createElement("a");
       fURL.href = this.downloadLink;
@@ -106,7 +123,7 @@ export default {
       console.log ("user", this.deleteUser);
       this.$http
         .get(
-          "http://192.168.1.157:3000/api/dashboard/candidates_record/delete", 
+          "http://34.135.254.16/backend/api/dashboard/candidates_record/delete", 
           {
             params: { LogID: id },
           }
@@ -131,15 +148,15 @@ export default {
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 .table-div {
-  height: 77vh;
-  font-size: 15px;
+  height: 78vh;
+  font-size: 14px;
   overflow-x: auto;
   overflow-y: auto;
 }
 table {
-  background-color: #fff;
-  box-shadow: 1px 1px 12px rgb(207, 207, 207);
-  border-radius: 10px;
+  background-color: #fcfcfc;
+  box-shadow: 1px 1px 12px rgb(231, 231, 231);
+  border-radius: 5px;
 }
 /* td {
   vertical-align: middle;
@@ -149,5 +166,6 @@ table {
 .fa-trash-alt {
   cursor: pointer;
   color: #28374e;
+  font-size:15px
 }
 </style>

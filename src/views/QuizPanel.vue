@@ -2,12 +2,12 @@
   <div class="quiz">
     <div class="container-fluid text-left main-div p-3 pb-5">
       <img :src="logo" alt="logo" width="60px" class="logo ml-2" />
-      
-      <div class="col-9 right-panel bg-white mt-n4 mx-auto" v-if="!isRecording">
+
+      <div class="col-9 right-panel mt-n4 mx-auto" v-if="!isRecording">
         <Instructions></Instructions>
       </div>
-      
-      <div class="col-9 right-panel bg-white mx-auto" v-else>
+
+      <div class="col-9 right-panel mx-auto" v-else>
         <Quiz></Quiz>
 
         <!-- MODAL -->
@@ -15,25 +15,33 @@
           <!-- Modal content -->
           <div class="modal-content">
             <div class="modal-header">
-              <h5 v-if="uploadPercentage == 100" class="modal-title" id="exampleModalLongTitle">Video Uploaded</h5>
-              <h5 v-else class="modal-title" id="exampleModalLongTitle">Progress Uploading</h5>
+              <h5
+                v-if="uploadPercentage == 100"
+                class="modal-title"
+                id="exampleModalLongTitle"
+              >
+                Video Uploaded
+              </h5>
+              <h5 v-else class="modal-title" id="exampleModalLongTitle">
+                Progress Uploading
+              </h5>
             </div>
             <div class="modal-body">
               <!-- form for in div where user enter data for update -->
               <progress
-                class="progress-bar progress-bar-striped progress-bar-animated rounded"
+                class="
+                  progress-bar progress-bar-striped progress-bar-animated
+                  rounded
+                "
                 max="100"
-                style="width: 100% "
+                style="width: 100%"
                 :value.prop="uploadPercentage"
               ></progress>
             </div>
           </div>
         </div>
         <!-- END OF MODAL -->
-
-
       </div>
-
     </div>
   </div>
 </template>
@@ -48,6 +56,7 @@ export default {
   components: {
     Instructions,
     Quiz,
+    // VUE_APP_SERVICE_URL : process.env.VUE_APP_SERVICE_URL
   },
   data() {
     return {
@@ -67,10 +76,10 @@ export default {
       mediaRecorder: {},
       stream: {},
       recordedChunks: [],
-    }
+    };
   },
   methods: {
-    download: function() {
+    download: function () {
       this.$gtag.event("download-stream", {});
       var blob = new Blob(this.recordedChunks, {
         type: "video/webm",
@@ -81,8 +90,8 @@ export default {
 
       formData.append("LogID", logId);
       this.$http
-        // .post("http://192.168.1.157:3000/api/quiz/submit", formData, {
-        .post("http://35.239.165.90/api/quiz/submit", formData, {
+
+        .post(this.VUE_APP_SERVICE_URL + "/quiz/submit", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -98,18 +107,18 @@ export default {
           console.log("SUCCESS!! ", res);
         })
         .catch((err) => {
-          alert("Error", err);
+          alert("here isError", err);
         });
 
-        var modal=document.getElementById("myModal");
-        modal.style.display = "block";
-        // this.isRecording = false;
+      var modal = document.getElementById("myModal");
+      modal.style.display = "block";
+      // this.isRecording = false;
     },
-    handleDataAvailable: function(event) {
+    handleDataAvailable: function (event) {
       if (event.data.size > 0) {
         this.recordedChunks.push(event.data);
         this.download();
-        }
+      }
     },
     stopStream: function () {
       this.$gtag.event("stream-stop", {});
@@ -128,7 +137,6 @@ export default {
         this.isRecording = true;
         this.$router.push({ path: "/questions" });
         this.$gtag.event("stream-start", {});
-
       } catch (err) {
         this.isRecording = false;
         this.$gtag.event("stream-stop", {});
@@ -140,21 +148,21 @@ export default {
     var link = localStorage.getItem("generatedLink");
 
     this.$http
-    .get(link)
-    .then((res) => {
-      localStorage.setItem("logId",res.data.id);
-      console.log(res);
-    })
-    .catch((err) => {
-      alert("Error", err);
-    });
-  }
+      .get(link)
+      .then((res) => {
+        localStorage.setItem("logId", res.data.id);
+        console.log(res);
+      })
+      .catch((err) => {
+        alert("Error", err);
+      });
+  },
 };
 </script>
 
 <style scoped>
 .main-div {
-  background: #F5F5F5;
+  background: #fff;
   height: 100%;
 }
 .logo {
@@ -165,6 +173,9 @@ export default {
   height: 100%;
   padding: 40px;
   border-radius: 10px;
+  background: #fcfcfc;
+  box-shadow: 1px 1px 12px rgb(231, 231, 231);
+  border-radius: 5px;
 }
 .modalss {
   display: none; /* Hidden by default */
@@ -179,14 +190,14 @@ export default {
   overflow: auto; /* Enable scroll if needed */
   background-color: white;
   border-radius: 10px;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   /* background-color: rgba(102,87,235,0.4);  */
   /* Black w/ opacity */
-   /* left: 0;
+  /* left: 0;
   top: 0; */
 }
 .close {
-  color: #AAAAAA;
+  color: #aaaaaa;
   font-size: 28px;
   font-weight: bold;
   /* float: right; */

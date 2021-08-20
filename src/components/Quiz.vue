@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white">
+  <div class="">
     <div class="quiz-panel p-4 mx-auto">
       <div class="border-box">
         <div class="heading py-3 text-white">
@@ -64,7 +64,11 @@
         </div>
       </div>
       <div class="pb-4">
-        <button type="submit" class="start mt-2 btn float-right" @click="stopStream">
+        <button
+          type="submit"
+          class="start mt-2 btn float-right"
+          @click="stopStream"
+        >
           <span class="text-white">Submit</span>
           <b-icon-chevron-right class="arrow text-white"></b-icon-chevron-right>
         </button>
@@ -98,7 +102,7 @@ export default {
 
 <style scoped>
 .main-div {
-  background: #F5F5F5;
+  background: #f5f5f5;
   position: fixed;
   height: 100%;
 }
@@ -111,29 +115,29 @@ export default {
   height: 100%;
 }
 .heading {
-  background: #28374E;
+  background: #28374e;
   font-weight: 300;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 .card-link {
   text-decoration: none;
-  color: #17114F;
+  color: #17114f;
 }
 .time-limit {
   font-size: 18px;
 }
 .border-box {
-  border: 2px solid #F05E59;
+  border: 2px solid #f05e59;
   border-left: 0;
   border-right: 0;
   padding: 5px 0;
 }
 .horizontal-border {
-  border: 1px solid #F05E59;
+  border: 1px solid #f05e59;
 }
 button {
-  background: #F05E59;
+  background: #f05e59;
   border-radius: 20px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   width: 130px;

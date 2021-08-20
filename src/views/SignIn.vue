@@ -1,107 +1,129 @@
 <template>
-  <div class="vue-tempalte p-4">
-    <div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 ">
-        <div class="card card0 border-0">
-            <div class="row d-flex">
-                <div class="col-lg-6">
-                  <div class="card1 pb-4">
-                    <div class="row"> 
-                      <!-- <img src="https://lh4.googleusercontent.com/-NBHTPcSODCo/AAAAAAAAAAI/AAAAAAAAAAA/gpcgk3f8kGc/s44-p-k-no-ns-nd/photo.jpg" class="logo">  -->
-                      <img class="logo" :src="logo" alt="Developers Studio Logo" />
-                    </div>
-                    <div class="row px-3 justify-content-center mt-4 mb-5 border-line"> 
-                      <!-- <img src="https://i.imgur.com/uNGdWHi.png" class="image">  -->
-                      <img class="image" :src="leftimg" alt="Image" />
-                    </div>
-                  </div>
-                </div>
+  <v-container fill-height fluid id="container-bg">
+    <v-row align="center" justify="center">
+      <v-col cols="2" md="2" sm="2" xl="3"> </v-col>
 
-                <div class="col-lg-6">
-                    <div class="card2 card border-0 px-4 py-5">
-                        <div class="row mb-4 px-3">
-                            <h6 class="mr-3 mt-1 p-0 text-left signin">Sign in with</h6>
-                            <div class="facebook text-center mr-3">
-                                <div class="fa fa-facebook"></div>
-                            </div>
-                            <div class="twitter text-center mr-3">
-                                <div class="fa fa-twitter"></div>
-                            </div>
-                            <div class="linkedin text-center mr-3">
-                                <div class="fa fa-linkedin"></div>
-                            </div>
-                        </div>
-                        <div class="row px-3 mb-4">
-                            <div class="line"></div> 
-                            <small class="or text-center">Or</small>
-                            <div class="line"></div>
-                        </div>
-                        <form @submit.prevent="postData" method="post">
-                          <div class="row px-3"> 
-                            <label class="mb-0 pl-0 text-left">Email</label> 
-                            <input class="mb-4" type="text" v-model="form.email" name="email" placeholder="Enter a valid email address"> 
-                          </div>
-                          <div class="row px-3"> 
-                            <label class="m-0 pl-0 text-left">Password</label> 
-                            <input type="password" v-model="form.password" name="password" placeholder="Enter password"> 
-                          </div>
-                          <!-- <div class="row px-3 pb-3">
-                            <div class="col-lg-6 custom-control custom-checkbox">
-                              <input id="chk1" type="checkbox" name="chk" class="custom-control-input"> 
-                              <label for="chk1" class="custom-control-label text-sm" id="chk1">Remember me</label>
-                            </div>
-                            <div class="col-lg-6  text-right">
-                              <a href="#" class="text-sm">Forgot Password?</a>
-                            </div>
-                          </div> -->
-                          <div class="row p-2 m-0" style="color:red">
-                            <p> {{ msg }} &nbsp; </p>
-                          </div>
-                          <div class="row mb-3 px-3"> 
-                            <button type="submit" class="btn btn-logout text-center">Login</button> 
-                          </div>
-                        </form>
-                        <div class="row mb-2 px-3"> 
-                          <small class="font-weight-bold">Don't have an account? 
-                            <a class="text-danger ">Register</a>
-                          </small> 
-                        </div>
-                
-                    </div>
-                </div>
-            </div>
-            
-            <div class="bg-blue py-4">
-                <div class="row px-3">
-                  <div class="col-lg-6 text-left">
-                    <small class="ml-4 ml-sm-5 mb-2">Copyright &copy; 2021. All rights reserved.</small>
-                  </div>
-                  <div class="col-lg-6 text-right">
-                    <div class="social-contact ml-4 ml-sm-auto"> 
-                      <span class="fa fa-facebook mr-4 text-sm"></span> 
-                      <span class="fa fa-google-plus mr-4 text-sm"></span> 
-                      <span class="fa fa-linkedin mr-4 text-sm"></span> 
-                      <span class="fa fa-twitter mr-4 mr-sm-5 text-sm"></span> 
-                    </div>
-                  </div>
-                </div>
-            </div>
-        </div>
-    </div>   
-  </div>
-   
+      <v-col cols="8" md="8" xl="6" sm="8" ma="5">
+        <v-card flat height="450px" color="white" class="d-flex justify-center">
+          <v-row>
+            <v-col
+              cols="10"
+              md="6"
+              xl="6"
+              sm="10"
+              offset-sm="1"
+              offset-md="0"
+              class="d-flex justify-center align-center"
+            >
+              <v-form @submit.prevent="postData" method="post">
+                <h2 class="d-flex justify-center heading-2" color="login--text">
+                  Sign In
+                </h2>
+                <br /><br />
+                <v-text-field
+                  v-model="form.email"
+                  dense
+                  label="Email"
+                  type="email"
+                  outlined
+                  append-icon="mdi-email login--text"
+                  class="mx-5"
+                  color="login"
+                ></v-text-field>
+
+                <v-text-field
+                  v-model="form.password"
+                  dense
+                  label="Password"
+                  type="password"
+                  outlined
+                  append-icon="mdi-lock login--text"
+                  class="mx-5"
+                  color="login"
+                ></v-text-field>
+
+                <p class="float-right mx-5" color="login--text">
+                  <a class="login--text">Forget Password?</a>
+                </p>
+                <br />
+
+                <v-card-actions class="justify-center" style="width:100%">
+                  <v-btn type="submit" class="login white--text mx-auto" color="#394448">Sign In</v-btn>
+                </v-card-actions>
+
+                <br />
+
+                <h6
+                  id="h5-text"
+                  class="d-flex justify-center"
+                  color="login--text"
+                >
+                  Haven't Account?
+                  <b
+                    ><a class="login--text subtitle-2">
+                      &nbsp;Register Now</a
+                    ></b
+                  >
+                </h6>
+              </v-form>
+            </v-col>
+
+            <v-col
+              md="6"
+              xl="6"
+              class="hidden-sm-and-down d-flex justify-center align-center"
+              id="card-bg"
+            >
+              <v-row>
+                <v-col cols="2" md="2" lg="2"></v-col>
+                <v-col cols="8" md="8" lg="8" class="hidden-sm-and-down">
+                  <v-card height="330px" color="white" id="card-right">
+                    <br />
+                    <v-img
+                      id="img-logo"
+                      src="../assets/webLogo.png"
+                      height="70px"
+                      width="70px"
+                    ></v-img>
+
+                    <p class="align-center login--text" id="text-p">
+                      Job <b>POST</b> <br />
+                      Online
+                    </p>
+
+                    <p id="text-p">
+                      Job Post <br />Management System <br />for post job on
+                      Social <br />Media Platfrom
+                    </p>
+
+                    <v-card-actions class="justify-center">
+                      <v-icon>mdi-google</v-icon>
+                      <v-icon>mdi-facebook</v-icon>
+                      <v-icon>mdi-linkedin</v-icon>
+                      <v-icon>mdi-twitter</v-icon>
+                    </v-card-actions>
+                  </v-card>
+                </v-col>
+                <v-col cols="2" md="2" lg="2"></v-col>
+              </v-row>
+            </v-col>
+
+          </v-row>
+        </v-card>
+      </v-col>
+      <v-col cols="2" md="2" sm="2" xl="3"> </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
-import image1 from "@/assets/dsCircleLogo.png";
-import image2 from "@/assets/signin.png";
-
 export default {
-  name: "signin",
-   props: {
+  name: "home",
+  props: {
     msg: {
       type: String,
       // default: "Enter correct email and password!"
-    }
+    },
   },
   data() {
     return {
@@ -109,168 +131,65 @@ export default {
         email: null,
         password: null,
       },
-      // msg: null,
-      logo: image1,
-      leftimg: image2,
-    }
+    };
   },
-  methods:{
-    postData(){
+  methods: {
+    postData() {
       this.$http
-      .post('http://35.239.165.90/api/admin/login', this.form)
-      .then((result)=>{
-        localStorage.setItem('loggedUser', JSON.stringify(this.form));
-        this.$router.push({ name: "dashboard" });
-        console.log("result", result);
-
-      }).catch(err => {
-        this.msg = "Incorrect email or password!";
-        console.log("err", err)
-      })
-    }
-  }
+        .post("http://34.135.254.16/backend/api/admin/login", this.form)
+        .then((result) => {
+          localStorage.setItem("loggedUser", JSON.stringify(this.form));
+          alert("Hello" + result);
+          this.$router.push({ name: "dashboard" });
+          console.log("result", result);
+        })
+        .catch((err) => {
+          alert("Error: " + err);
+          this.msg = "Incorrect email or password!";
+          console.log("err", err);
+        });
+    },
+  },
 };
 </script>
 
 <style scoped>
-body {
-  background-color:#F5F5F5;
-  color: #000;
-  background-repeat: no-repeat
-}
-.vue-tempalte {
-  background-color:#F5F5F5;
-}
-.card0 {
-  /* box-shadow: 0px 4px 8px 0px #757575; */
-  border-radius: 10px
-}
-.card2 {
-  margin: 0px 40px
-}
-.logo {
-  width: 80px;
-  margin-top: 20px;
-  margin-left: 35px
-}
-.image {
-  width: 480px;
-  /* height: 280px */
-}
-.border-line {
-  border-right: 1px solid #EEEEEE
-}
-.signin {
-  width: auto;
-}
-.facebook {
-  background-color: #3b5998;
-  color: #fff;
-  font-size: 18px;
-  padding-top: 5px;
-  border-radius: 50%;
-  width: 35px;
-  height: 35px;
-  cursor: pointer
-}
-.twitter {
-  background-color: #1DA1F2;
-  color: #fff;
-  font-size: 18px;
-  padding-top: 5px;
-  border-radius: 50%;
-  width: 35px;
-  height: 35px;
-  cursor: pointer
-}
-.linkedin {
-  background-color: #2867B2;
-  color: #fff;
-  font-size: 18px;
-  padding-top: 5px;
-  border-radius: 50%;
-  width: 35px;
-  height: 35px;
-  cursor: pointer
-}
-.line {
-  height: 1px;
-  width: 45%;
-  background-color: #E0E0E0;
-  margin-top: 10px
-}
-.or {
-  width: 10%;
-  font-weight: bold
-}
-.text-sm {
-  font-size: 14px; 
-}
-::placeholder {
-  color: #BDBDBD;
-  opacity: 1;
-  font-weight: 300
-}
-:-ms-input-placeholder {
-  color: #BDBDBD;
-  font-weight: 300
-}
-::-ms-input-placeholder {
-  color: #BDBDBD;
-  font-weight: 300
-}
-input,
-textarea {
-  padding: 10px 12px 10px 12px;
-  border: 1px solid lightgrey;
-  border-radius: 2px;
-  margin-bottom: 5px;
-  margin-top: 2px;
-  width: 100%;
-  box-sizing: border-box;
-  font-size: 14px;
-  letter-spacing: 1px
-}
-input:focus,
-textarea:focus {
-  border: 1px solid #EF6052;
-  outline-width: 0
-}
-button:focus {
-  outline-width: 0
-}
-a {
-  color: inherit;
-  cursor: pointer
-}
-.btn-logout {
-  background-color: #ef6052;
-  color: #fcfcfc;
-  width: 130px;
-  border-radius: 20px;
-}
-.bg-blue {
-  color: #fff;
-  background-color: #EF6052
+.v-text-field--outlined >>> fieldset {
+  border-color: #394448;
+  color: #394448;
 }
 
-@media screen and (max-width: 991px) {
-  .logo {
-    margin-left: 0px
-  }
-  .image {
-    width: 300px;
-    height: 220px
-  }
-  .border-line {
-    border-right: none
-  }
-  #chk1{
-    color:#EF6052;
-  }
-  .card2 {
-    border-top: 1px solid #EEEEEE !important;
-    margin: 0px 15px
-  }
+.v-btn {
+  width: 90px;
+}
+
+#container-bg {
+  background-color: #f4f8fb;
+}
+
+#card-bg {
+  background: url("../assets/slideBar4.png") no-repeat right;
+}
+
+#text-p {
+  font-size: 12px;
+  text-align: center;
+}
+
+#img-logo {
+  display: block;
+  margin: 0 auto;
+}
+
+#h5-text {
+  font-weight: normal;
+}
+
+#card-right {
+  margin-left: 20px;
+}
+
+.v-icon {
+  margin-left: 5px;
 }
 </style>
